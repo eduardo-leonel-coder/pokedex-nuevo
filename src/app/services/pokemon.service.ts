@@ -42,5 +42,17 @@ export class PokemonService {
     const id = this.getIdFromUrl(url);
     return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
   }
-};
 
+  getTiposDeLista(items: PokemonListItem[]): Observable<{id: number; types: string[]}[]> {
+    const peticiones = items.map(item => 
+      this.obtenerDetallePokemon(item.name).pipe(
+        map(detalle => ({
+          id: detalle.id,
+          types: detalle.types.map((t) => t.type.name)
+        })),
+        catchError(() => of({ id: this.getIdFromUrl(item.url), types: [] as string[] }))
+      )
+    );
+    return forkJoin(peticiones);
+  };
+};

@@ -1,5 +1,6 @@
 // Interfaz principal de un Pokemon
 export interface PokemonInterface {
+    id: number;
     name: string;
     height: number;
     weight: number;
