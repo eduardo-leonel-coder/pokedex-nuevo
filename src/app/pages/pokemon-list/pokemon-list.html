@@ -1,3 +1,9 @@
-@for(pokemon of pokemons(); track pokemon.name) {
-    <p>{{ pokemon.name }}</p>
-}
+<div class="grid">
+    @for(pokemon of pokemons(); track pokemon.name) {
+        <app-pokemon-card
+            [name]="pokemon.name"
+            [id]="getId(pokemon.url)"
+            [spriteUrl]="getSprite(pokemon.url)"
+        />
+ }
+</div>
